@@ -10,3 +10,6 @@ Node lets you subscribe dynamically to different topics via msg.topic and output
 3. `cd node-red-contrib-digitaloak-mqtt`
 4. `npm install`
 5. Restart Node-RED
+
+#### TODO
+Another node which will be closing specified subscriptions to topics.
