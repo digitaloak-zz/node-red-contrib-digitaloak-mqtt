@@ -1,0 +1,72 @@
+<!--
+  Copyright JS Foundation and other contributors, http://js.foundation
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="digitaloak-mqtt-in">
+    <div class="form-row">
+        <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span></label>
+        <input type="text" id="node-input-broker">
+    </div>
+    <div class="form-row">
+        <label for="node-input-qos"><i class="fa fa-empire"></i> <span data-i18n="mqtt.label.qos"></span></label>
+        <select id="node-input-qos" style="width:125px !important">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-datatype"><i class="fa fa-sign-out"></i> <span data-i18n="mqtt.label.output"></span></label>
+        <select id="node-input-datatype" style="width:70%;">
+            <option value="auto" data-i18n="mqtt.output.auto"></option>
+            <option value="buffer" data-i18n="mqtt.output.buffer"></option>
+            <option value="utf8" data-i18n="mqtt.output.string"></option>
+            <option value="json" data-i18n="mqtt.output.json"></option>
+            <option value="base64" data-i18n="mqtt.output.base64"></option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('digitaloak-mqtt-in',{
+        category: 'input',
+        defaults: {
+            name: {value:""},
+            qos: {value: "2"},
+            datatype: {value:"auto",required:true},
+            broker: {type:"mqtt-broker", required:true}
+        },
+        color:"#d8bfd8",
+        inputs:1,
+        outputs:1,
+        icon: "bridge.png",
+        label: function() {
+            return "mqtt";
+        },
+	paletteLabel: "mqtt",
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+            if (this.qos === undefined) {
+                $("#node-input-qos").val("2");
+            }
+            if (this.datatype === undefined) {
+                $("#node-input-datatype").val("auto");
+            }
+        }
+    });
+</script>
