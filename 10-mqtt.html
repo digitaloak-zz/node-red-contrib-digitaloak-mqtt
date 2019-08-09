@@ -35,6 +35,10 @@
         </select>
     </div>
     <div class="form-row">
+        <input type="checkbox" id="node-input-unsub-after-first-msg-recv" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-unsub-after-first-msg-recv" style="width: auto" data-i18n="mqtt.label.unsub-after-first-msg-recv"></label>
+    </div>
+    <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
     </div>
@@ -47,6 +51,7 @@
             name: {value:""},
             qos: {value: "2"},
             datatype: {value:"auto",required:true},
+	    "unsub-after-first-msg-recv": {value:true},
             broker: {type:"mqtt-broker", required:true}
         },
         color:"#d8bfd8",

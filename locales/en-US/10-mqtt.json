@@ -42,7 +42,9 @@
             "use-tls": "Enable secure (SSL/TLS) connection",
             "tls-config":"TLS Configuration",
             "verify-server-cert":"Verify server certificate",
-            "compatmode": "Use legacy MQTT 3.1 support"
+            "compatmode": "Use legacy MQTT 3.1 support",
+	    "unsub-after-first-msg-recv": "Unsubscribe from topic after first message received"
+
         },
         "sections-label":{
             "birth-message": "Message sent on connection (birth message)",

@@ -33,6 +33,8 @@ module.exports = function(RED) {
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
         this.datatype = n.datatype || "utf8";
+	this.unsubAfterFirstMsgRecv = n["unsub-after-first-msg-recv"];
+	console.log(this.unsubAfterFirstMsgRecv);
         var node = this;
         if (this.brokerConn) {
             this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
@@ -64,6 +66,10 @@ module.exports = function(RED) {
                         if ((node.brokerConn.broker === "localhost")||(node.brokerConn.broker === "127.0.0.1")) {
                             msg._topic = topic;
                         }
+			// Unsubscribe if checkbox checked
+			if (node.unsubAfterFirstMsgRecv) {
+			    node.brokerConn.unsubscribe(node.topic,node.id,true);
+			}
                         node.send(msg);
                     }, this.id);
                     if (this.brokerConn.connected) {
