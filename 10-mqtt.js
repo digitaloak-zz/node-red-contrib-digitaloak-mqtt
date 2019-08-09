@@ -34,7 +34,6 @@ module.exports = function(RED) {
         this.brokerConn = RED.nodes.getNode(this.broker);
         this.datatype = n.datatype || "utf8";
 	this.unsubAfterFirstMsgRecv = n["unsub-after-first-msg-recv"];
-	console.log(this.unsubAfterFirstMsgRecv);
         var node = this;
         if (this.brokerConn) {
             this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
