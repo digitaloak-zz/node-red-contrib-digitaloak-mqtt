@@ -60,7 +60,7 @@ module.exports = function(RED) {
                         } else {
                             if (isUtf8(payload)) { payload = payload.toString(); }
                         }
-                        var msg = {topic:topic, payload:payload, qos:packet.qos, retain:packet.retain, node_id:node.id};
+                        var msg = {topic:topic, payload:payload, qos:packet.qos, retain:packet.retain};
                         if ((node.brokerConn.broker === "localhost")||(node.brokerConn.broker === "127.0.0.1")) {
                             msg._topic = topic;
                         }
