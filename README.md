@@ -5,7 +5,8 @@ Based on core Node-RED "mqtt in" and "mqtt-broker" nodes.
 Keep REST API req/res sync when doing async work
 
 #### Description
-Node lets you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics.
+digitaloak-mqtt-in allows you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics.
+digitaloak-mqtt-unsubscribe allows you to manually unsubscribe from topic.
 
 When box checked "Unsubscribe from topic after first message received" for digitaloak-mqtt-in, node will immediately unsubscribe after receiving first msg. If you want uncheck this option, use digitaloak-mqtt-unsubscribe to unsubscribe manually.
 
