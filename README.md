@@ -5,9 +5,11 @@ Based on core Node-RED "mqtt in" and "mqtt-broker" nodes.
 Keep REST API req/res sync when doing async work
 
 #### Description
-Node lets you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics. 
+Node lets you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics.
+
 When box checked "Unsubscribe from topic after first message received" for digitaloak-mqtt-in, node will immediately unsubscribe after receiving first msg. If you want uncheck this option, unused subscriptions will be open - keep it in mind until will be released second node which allows unsubscribe from topic.
-Use case example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847
+
+Example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847
 
 #### Installation (Node-RED in docker)
 1. Go to Node-RED modules directory - /data/node_modules
