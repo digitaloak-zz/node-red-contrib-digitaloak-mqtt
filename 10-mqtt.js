@@ -90,4 +90,41 @@ module.exports = function(RED) {
         }
     }
     RED.nodes.registerType("digitaloak-mqtt-in",digitaloak_MQTTInNode);
+
+    function digitaloak_MQTTUnsubscribe(n) {
+        RED.nodes.createNode(this,n);
+        this.broker = n.broker;
+        this.brokerConn = RED.nodes.getNode(this.broker);
+        var node = this;
+
+        if (this.brokerConn) {
+            this.on("input",function(msg) {
+                this.topic = msg.topic;
+                this._nodeid = msg._nodeid;
+                if (!this.topic) {
+                    this.error(RED._("mqtt.errors.not-defined"))
+                }
+                if (!this._nodeid) {
+                    this.error(RED._("mqtt.errors.nodeid-not-defined"))
+                }
+                if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
+                    return this.warn(RED._("mqtt.errors.invalid-topic"));
+                }
+
+                node.brokerConn.unsubscribe(this.topic, this._nodeid,true);
+                node.send(msg);
+
+            });
+            if (this.brokerConn.connected) {
+                node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+            }
+            //node.brokerConn.register(node);
+            //this.on('close', function(done) {
+            //    node.brokerConn.deregister(node,done);
+            //});
+        } else {
+            this.error(RED._("mqtt.errors.missing-config"));
+        }
+    }
+    RED.nodes.registerType("digitaloak-mqtt-unsubscribe",digitaloak_MQTTUnsubscribe);
 };
