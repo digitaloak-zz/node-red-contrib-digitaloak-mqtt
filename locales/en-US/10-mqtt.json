@@ -81,7 +81,6 @@
         "tip": "Tip: Leave topic, qos or retain blank if you want to set them via msg properties.",
         "errors": {
             "not-defined": "topic not defined",
-	    "nodeid-not-defined": "nodeid not defiend",
             "missing-config": "missing broker configuration",
             "invalid-topic": "Invalid topic specified",
             "nonclean-missingclientid": "No client ID set, using clean session",

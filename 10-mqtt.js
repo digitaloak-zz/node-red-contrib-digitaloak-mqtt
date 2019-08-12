@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-module.exports = function(RED) {
+module.exports = function (RED) {
     "use strict";
     var mqtt = require("mqtt");
     var util = require("util");
@@ -22,10 +22,10 @@ module.exports = function(RED) {
     var HttpsProxyAgent = require('https-proxy-agent');
     var url = require('url');
 
-    
+
 
     function digitaloak_MQTTInNode(n) {
-        RED.nodes.createNode(this,n);
+        RED.nodes.createNode(this, n);
         this.qos = parseInt(n.qos);
         if (isNaN(this.qos) || this.qos < 0 || this.qos > 2) {
             this.qos = 2;
@@ -33,98 +33,102 @@ module.exports = function(RED) {
         this.broker = n.broker;
         this.brokerConn = RED.nodes.getNode(this.broker);
         this.datatype = n.datatype || "utf8";
-	this.unsubAfterFirstMsgRecv = n["unsub-after-first-msg-recv"];
+        this.unsubAfterFirstMsgRecv = n["unsub-after-first-msg-recv"];
         var node = this;
         if (this.brokerConn) {
-            this.status({fill:"red",shape:"ring",text:"node-red:common.status.disconnected"});
-            this.on("input", function(msg) {
-		this.topic = msg.topic;
+            this.status({
+                fill: "red",
+                shape: "ring",
+                text: "node-red:common.status.disconnected"
+            });
+            this.on("input", function (msg) {
+                this.topic = msg.topic;
                 if (this.topic) {
-    		    if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
-        		return this.warn(RED._("mqtt.errors.invalid-topic"));
-    		    }
-                    node.brokerConn.register(this);
-                    this.brokerConn.subscribe(this.topic,this.qos,function(topic,payload,packet) {
-                        if (node.datatype === "buffer") {
-                            // payload = payload;
-                        } else if (node.datatype === "base64") {
-                            payload = payload.toString('base64');
-                        } else if (node.datatype === "utf8") {
-                            payload = payload.toString('utf8');
-                        } else if (node.datatype === "json") {
-                            if (isUtf8(payload)) {
-                                payload = payload.toString();
-                                try { payload = JSON.parse(payload); }
-                                catch(e) { node.error(RED._("mqtt.errors.invalid-json-parse"),{payload:payload, topic:topic, qos:packet.qos, retain:packet.retain}); return; }
-                            }
-                            else { node.error((RED._("mqtt.errors.invalid-json-string")),{payload:payload, topic:topic, qos:packet.qos, retain:packet.retain}); return; }
-                        } else {
-                            if (isUtf8(payload)) { payload = payload.toString(); }
-                        }
-                        var msg = {topic:topic, payload:payload, qos:packet.qos, retain:packet.retain, _nodeid:node.id};
-                        if ((node.brokerConn.broker === "localhost")||(node.brokerConn.broker === "127.0.0.1")) {
-                            msg._topic = topic;
-                        }
-			// Unsubscribe if checkbox checked
-			if (node.unsubAfterFirstMsgRecv) {
-			    node.brokerConn.unsubscribe(topic,node.id,true);
-			}
-			node.send(msg);
-                    }, this.id);
-                    if (this.brokerConn.connected) {
-                        node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
+                    if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
+                        return this.warn(RED._("mqtt.errors.invalid-topic"));
                     }
-                }
-                else {
+                    if (this.topic !== "_unsubscribe") {
+                        node.brokerConn.register(this);
+                        this.brokerConn.subscribe(this.topic, this.qos, function (topic, payload, packet) {
+                            if (node.datatype === "buffer") {
+                                // payload = payload;
+                            } else if (node.datatype === "base64") {
+                                payload = payload.toString('base64');
+                            } else if (node.datatype === "utf8") {
+                                payload = payload.toString('utf8');
+                            } else if (node.datatype === "json") {
+                                if (isUtf8(payload)) {
+                                    payload = payload.toString();
+                                    try {
+                                        payload = JSON.parse(payload);
+                                    } catch (e) {
+                                        node.error(RED._("mqtt.errors.invalid-json-parse"), {
+                                            payload: payload,
+                                            topic: topic,
+                                            qos: packet.qos,
+                                            retain: packet.retain
+                                        });
+                                        return;
+                                    }
+                                } else {
+                                    node.error((RED._("mqtt.errors.invalid-json-string")), {
+                                        payload: payload,
+                                        topic: topic,
+                                        qos: packet.qos,
+                                        retain: packet.retain
+                                    });
+                                    return;
+                                }
+                            } else {
+                                if (isUtf8(payload)) {
+                                    payload = payload.toString();
+                                }
+                            }
+                            var msg = {
+                                topic: topic,
+                                payload: payload,
+                                qos: packet.qos,
+                                retain: packet.retain,
+                                _nodeid: node.id
+                            };
+                            if ((node.brokerConn.broker === "localhost") || (node.brokerConn.broker === "127.0.0.1")) {
+                                msg._topic = topic;
+                            }
+                            // Unsubscribe if checkbox checked
+                            if (node.unsubAfterFirstMsgRecv) {
+                                node.brokerConn.unsubscribe(topic, node.id, true);
+                            }
+                            node.send(msg);
+                        }, this.id);
+                        if (this.brokerConn.connected) {
+                            node.status({
+                                fill: "green",
+                                shape: "dot",
+                                text: "node-red:common.status.connected"
+                            });
+                        }
+                    } else {
+                        node.brokerConn.unsubscribe(topic, node.id, true);
+                        var msg = {
+                            status: "Unsubscribed",
+                            topic: topic
+                        }
+                        node.send(msg);               
+                    }
+                } else {
                     this.error(RED._("mqtt.errors.not-defined"));
                 }
             });
-            this.on('close', function(removed, done) {
+            this.on('close', function (removed, done) {
                 if (node.brokerConn) {
-                    node.brokerConn.unsubscribe(node.topic,node.id, removed);
-                    node.brokerConn.deregister(node,done);
+                    node.brokerConn.unsubscribe(node.topic, node.id, removed);
+                    node.brokerConn.deregister(node, done);
                 }
             });
         } else {
             this.error(RED._("mqtt.errors.missing-config"));
         }
     }
-    RED.nodes.registerType("digitaloak-mqtt-in",digitaloak_MQTTInNode);
+    RED.nodes.registerType("digitaloak-mqtt-in", digitaloak_MQTTInNode);
 
-    function digitaloak_MQTTUnsubscribe(n) {
-        RED.nodes.createNode(this,n);
-        this.broker = n.broker;
-        this.brokerConn = RED.nodes.getNode(this.broker);
-        var node = this;
-
-        if (this.brokerConn) {
-            this.on("input",function(msg) {
-                this.topic = msg.topic;
-                this._nodeid = msg._nodeid;
-                if (!this.topic) {
-                    this.error(RED._("mqtt.errors.not-defined"))
-                }
-                if (!this._nodeid) {
-                    this.error(RED._("mqtt.errors.nodeid-not-defined"))
-                }
-                if (!/^(#$|(\+|[^+#]*)(\/(\+|[^+#]*))*(\/(\+|#|[^+#]*))?$)/.test(this.topic)) {
-                    return this.warn(RED._("mqtt.errors.invalid-topic"));
-                }
-
-                node.brokerConn.unsubscribe(this.topic, this._nodeid,true);
-                node.send(msg);
-
-            });
-            if (this.brokerConn.connected) {
-                node.status({fill:"green",shape:"dot",text:"node-red:common.status.connected"});
-            }
-            //node.brokerConn.register(node);
-            //this.on('close', function(done) {
-            //    node.brokerConn.deregister(node,done);
-            //});
-        } else {
-            this.error(RED._("mqtt.errors.missing-config"));
-        }
-    }
-    RED.nodes.registerType("digitaloak-mqtt-unsubscribe",digitaloak_MQTTUnsubscribe);
 };

@@ -6,9 +6,8 @@ Keep REST API req/res sync when doing async work
 
 #### Description
 digitaloak-mqtt-in allows you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics.
-digitaloak-mqtt-unsubscribe allows you to manually unsubscribe from topic.
 
-When box checked "Unsubscribe from topic after first message received" for digitaloak-mqtt-in, node will immediately unsubscribe after receiving first msg. If you want uncheck this option, use digitaloak-mqtt-unsubscribe to unsubscribe manually.
+When box checked "Unsubscribe from topic after first message received" for digitaloak-mqtt-in, node will immediately unsubscribe after receiving first msg.
 
 Example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847
 
