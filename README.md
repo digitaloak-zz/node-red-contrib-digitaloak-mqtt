@@ -1,5 +1,5 @@
 ### MQTT input node: digitaloak-mqtt-in
-Based on core Node-RED "mqtt in" which uses "mqtt-broker" config node.
+Based on core Node-RED "mqtt in" node which uses "mqtt-broker" config node.
 
 #### Features
 - subscribe dynamically to topics  
