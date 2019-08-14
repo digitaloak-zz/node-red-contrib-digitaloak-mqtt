@@ -35,8 +35,8 @@
         </select>
     </div>
     <div class="form-row">
-        <input type="checkbox" id="node-input-unsub-after-first-msg-recv" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-unsub-after-first-msg-recv" style="width: auto" data-i18n="mqtt.label.unsub-after-first-msg-recv"></label>
+        <input type="checkbox" id="node-input-unsubscribe-after-first-msg-recv" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-unsubscribe-after-first-msg-recv" style="width: auto" data-i18n="mqtt.label.unsubscribe-after-first-msg-recv"></label>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span></label>
@@ -51,8 +51,8 @@
             name: {value:""},
             qos: {value: "2"},
             datatype: {value:"auto",required:true},
-	    "unsub-after-first-msg-recv": {value:true},
-            broker: {type:"mqtt-broker", required:true}
+	    "unsubscribe-after-first-msg-recv": {value:true},
+            broker: {type:"mqtt-broker", required:true},
         },
         color:"#d8bfd8",
         inputs:1,

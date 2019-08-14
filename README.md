@@ -1,15 +1,17 @@
-### MQTT input node & MQTT unsubscibe
-Based on core Node-RED "mqtt in" and "mqtt-broker" nodes. 
+### MQTT input node
+Based on core Node-RED "mqtt in" which use "mqtt-broker" config node.
 
-#### Known use case
-Keep REST API req/res sync when doing async work
+#### Features
+- subscribe dynamically to topics
+- unsubscribe after first msg received
+- unsubscribe specific node/nodes from topic
 
 #### Description
-digitaloak-mqtt-in allows you subscribe dynamically to different topics via msg.topic and output msgs from subscribed topics.
+Set msg.topic to subscribe specific node to topic
+Check checkbox in config node to unsubscribe node from after receiving first msg
+Set string payload in format "_unsubscribe:<nodeName>" to unsubscribe given node from the topic defined in msg.topic
 
-When box checked "Unsubscribe from topic after first message received" for digitaloak-mqtt-in, node will immediately unsubscribe after receiving first msg.
-
-Example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847
+Example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847 (outdated)
 
 #### Installation (Node-RED in docker)
 1. Go to Node-RED modules directory - /data/node_modules
