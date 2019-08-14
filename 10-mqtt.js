@@ -59,10 +59,8 @@ module.exports = function (RED) {
 			// Don't pass unsubscribe msg through nodes
 			if (unsubNode) return;
                         if (node.datatype === "buffer") {
-			    //if (Buffer.compare(payload,Buffer.from(node.unsubscribeString, 'utf8'))) {
                             // payload = payload;
                         } else if (node.datatype === "base64") {
-			    //if (payload === btoa(node.unsubscribeString)) {
                             payload = payload.toString('base64');
                         } else if (node.datatype === "utf8") {
                             payload = payload.toString('utf8');
@@ -103,7 +101,7 @@ module.exports = function (RED) {
                         if ((node.brokerConn.broker === "localhost") || (node.brokerConn.broker === "127.0.0.1")) {
                             msg._topic = topic;
                         }
-                        // Unsubscribe if checkbox checked
+                        // Unsubscribe if checkbox set
                         if (node.unsubscribeAfterFirstMsgRecv) {
                             node.brokerConn.unsubscribe(topic, node.id, true);
                         }
@@ -118,7 +116,8 @@ module.exports = function (RED) {
                         });
                     }              
                 } else {
-                    this.error(RED._("mqtt.errors.not-defined"));
+                    //this.error(RED._("mqtt.errors.not-defined"));
+		    node.send(msg);
                 }
             });
             this.on('close', function (removed, done) {

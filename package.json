@@ -1,7 +1,6 @@
 {
   "name": "node-red-contrib-digitaloak-mqtt",
-  "version": "1.1.0",
-  "description": "Subscribe node with possibility to set topic via msg.topic. Entirely based on core Node-RED MQTT module.",
+  "version": "1.0.0",
   "node-red": {
     "nodes": {
       "digitaloak-mqtt-in": "10-mqtt.js"
@@ -17,6 +16,26 @@
   "directories": {
     "lib": "lib"
   },
-  "author": "tmdoit",
-  "license": "ISC"
+  "author": {
+    "name": "tmdoit",
+    "email": "tm@digitaloak.it"    
+  },
+  "bugs": {
+    "url":"https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt/issues"
+  },
+  "bundleDependencies": false,
+  "description" : "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription via msg.topic, unsubscribe after first msg recv option (condif node), dynamically unsubscribe specific node from specific topic.",
+  "homepage": "https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt#readme",
+  "keywords": [
+    "node-red",
+    "mqtt",
+    "dynamic mqtt",
+    "mqtt dynamic subscribe",
+    "mqtt dynamic unsubscribe"
+  ],
+  "repository": {
+    "type":"git",
+    "url":"git+https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt.git"
+  },
+  "license": "Apache-2.0"
 }
