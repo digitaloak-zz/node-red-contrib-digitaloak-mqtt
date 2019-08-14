@@ -14,7 +14,7 @@ Unsubscribe specific node from specific topic,via setting a string value in msg.
 Pass msgs via node - don't set msg.topic  
 
 #### Usage example
-Is available here: https://flows.nodered.org/flow/5492f72a81324cd3d11b51faf
+Is available here: https://flows.nodered.org/flow/5492f72a81324cd3d11b51faf0304ce3
 
 #### Comments
 <b>It's not battle tested yet</b>, so I will be happy for any feedback.
