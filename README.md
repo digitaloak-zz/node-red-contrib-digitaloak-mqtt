@@ -2,8 +2,8 @@
 Based on core Node-RED "mqtt in" which use "mqtt-broker" config node.
 
 #### Features
-- subscribe dynamically to topics
-- unsubscribe after first msg received
+- subscribe dynamically to topics via msg.topic
+- unsubscribe after first msg received (node config)
 - unsubscribe specific node/nodes from topic
 
 #### Description
