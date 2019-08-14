@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "node-red": {
     "nodes": {
-      "digitaloak-mqtt-in": "10-mqtt.js"
+      "digitaloak-mqtt-in": "mqtt/mqtt.js"
     }
   },
   "dependencies": {
