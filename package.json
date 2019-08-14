@@ -24,7 +24,7 @@
     "url":"https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt/issues"
   },
   "bundleDependencies": false,
-  "description" : "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription via msg.topic, unsubscribe after first msg recv option (condif node), dynamically unsubscribe specific node from specific topic.",
+  "description" : "Based on core mqtt-in node, using core mqtt-broker config node. Additional features: dynamic topic subscription via msg.topic, unsubscribe after first msg recv option (condif node), dynamically unsubscribe specific node from specific topic, pass msgs through node when msg.topic is not set.",
   "homepage": "https://github.com/digitaloak/node-red-contrib-digitaloak-mqtt#readme",
   "keywords": [
     "node-red",
