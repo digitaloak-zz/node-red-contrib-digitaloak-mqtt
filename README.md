@@ -13,13 +13,8 @@ Unsubscribe node from topic after first msg received, via setting checkbox in co
 Unsubscribe specific node from specific topic,via setting a string value in msg.payload in format "_unsubscribe:<nodeName>" ie. "_unsubscribe:waitingForResponse"  
 Pass msgs via node - don't set msg.topic  
 
-Example is available here: https://flows.nodered.org/flow/3003f194750b0dec19502e31ca234847 (outdated)  
+#### Usage example
+Is available here: https://flows.nodered.org/flow/5492f72a81324cd3d11b51faf
 
-#### Installation (Node-RED in docker)
-1. Go to Node-RED modules directory - /data/node_modules
-2. Run `git clone git@github.com:digitaloak/node-red-contrib-digitaloak-mqtt.git`
-3. `cd node-red-contrib-digitaloak-mqtt`
-4. `npm install`
-5. Restart Node-RED
  
 
