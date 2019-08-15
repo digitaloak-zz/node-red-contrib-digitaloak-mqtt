@@ -85,6 +85,7 @@
         "errors": {
             "not-defined": "topic not defined",
 	    "mqtt-broker-control-not-defined": "mqttBrokerControl not defined",
+	    "connected-no-broker-config": "Already connected, to reconnect with new config, pass config in brokerConfig property",
             "missing-config": "missing broker configuration",
             "invalid-topic": "Invalid topic specified",
             "nonclean-missingclientid": "No client ID set, using clean session",
