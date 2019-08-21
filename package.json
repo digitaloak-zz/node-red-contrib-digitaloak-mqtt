@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-digitaloak-mqtt",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "node-red": {
     "nodes": {
       "digitaloak-mqtt-in": "mqtt.js"
