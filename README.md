@@ -16,7 +16,10 @@ Pass msgs via node - don't set msg.topic
 #### Usage example
 Is available here: https://flows.nodered.org/flow/5492f72a81324cd3d11b51faf0304ce3
 
+#### Support & Discussion
+Please join: https://riot.digitaloak.it/#/room/#node-red-contrib-digitaloak-mqtt:digitaloak.it
+
 #### Comments
-1. One node can be subscribed to the same topic more than once, so if you send two msgs with msg.topic set to i.e. "testTopic", then node will receive two msgs for one msg published to the topic.
+1. One node can be subscribed to the same topic more than once, so if you send two msgs with msg.topic set to i.e. "testTopic", then node will receive two msgs for one msg published to the topic. 
 <b>It's not battle tested yet</b>, so I will be happy for any feedback.
 
